@@ -31,9 +31,21 @@ body {
     text-transform: uppercase;
 }
 
-.verde { background-color: #538d4e; }
-.amarillo { background-color: #b59f3b; }
-.gris { background-color: #3a3a3c; }
+/* Colores tiles */
+.tile.verde {
+    background-color: #538d4e;
+    border-color: #538d4e;
+}
+
+.tile.amarillo {
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+}
+
+.tile.gris {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
 
 .keyboard {
     margin-top: 20px;
@@ -49,8 +61,40 @@ body {
 .key {
     padding: 10px;
     min-width: 35px;
+    height: 45px;
     background-color: #818384;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
+    border: none;
+    color: black;
 }
+
+/* ENTER y BasckSpace */
+.key-wide {
+    min-width: 60px;
+    font-size: 14px;
+}
+
+/* Colores teclado */
+.key.verde {
+    background-color: #6aaa64;
+    color: white;
+}
+
+.key.amarillo {
+    background-color: #c9b458;
+    color: white;
+}
+
+.key.gris {
+    background-color: #787c7e;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Tecla bloqueada */
+.key:disabled {
+    opacity: 0.6; /*Esto lo que hace es cuando una tecla ya se ha utilizado pues que se quede como bloqueada*/
+}
+

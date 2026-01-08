@@ -5,12 +5,15 @@ let intentoActual = 0;
 let posicionLetra = 0;
 let palabraSecreta = "";
 
-const grid = document.getElementById("grid");
+
 const filas = document.querySelectorAll(".row");
 const mensaje = document.getElementById("mensaje");
 const keyboard = document.getElementById("keyboard");
 
 let palabraActual = "";
+
+/* TECLAS */
+const teclas = {};
 
 /* INICIAR JUEGO */
 async function iniciarJuego() {
@@ -21,7 +24,11 @@ async function iniciarJuego() {
 iniciarJuego();
 
 /* CREAR TECLADO */
-const filasTeclado = ["QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM"];
+const filasTeclado = [
+    "QWERTYUIOP", 
+    "ASDFGHJKLÑ", 
+    "⌫ZXCVBNM⏎"
+];
 
 function crearTeclado() {
     filasTeclado.forEach(fila => {
@@ -33,6 +40,26 @@ function crearTeclado() {
             btn.classList.add("key");
             btn.textContent = letra;
             btn.onclick = () => escribirLetra(letra);
+
+            // BORRAR
+            if (letra === "⌫") {
+                btn.textContent = "⌫";
+                btn.classList.add("key-wide");
+                btn.onclick = borrarLetra;
+            }
+            // ENTER
+            else if (letra === "⏎") {
+                btn.textContent = "ENTER";
+                btn.classList.add("key-wide");
+                btn.onclick = comprobarIntento;
+            }
+            // LETRAS
+            else {
+                btn.textContent = letra;
+                btn.onclick = () => escribirLetra(letra);
+                teclas[letra] = btn;
+            }
+
             divFila.appendChild(btn);
         });
 
@@ -42,6 +69,8 @@ function crearTeclado() {
 
 /* ESCRIBIR LETRA */
 function escribirLetra(letra) {
+    if (teclas[letra]?.classList.contains("gris")) return;
+
     if (posicionLetra < 5) {
         const tile = filas[intentoActual].children[posicionLetra];
         tile.textContent = letra;
@@ -101,6 +130,7 @@ function comprobarColores() {
     const secreta = palabraSecreta.split("");
     const intento = palabraActual.split("");
 
+    // VERDES
     intento.forEach((l, i) => {
         if (l === secreta[i]) {
             fila.children[i].classList.add("verde");
@@ -109,14 +139,39 @@ function comprobarColores() {
         }
     });
 
+    // AMARILLOS Y GRISES
     intento.forEach((l, i) => {
         if (!l) return;
+
         if (secreta.includes(l)) {
             fila.children[i].classList.add("amarillo");
+            colorearTecla(l, "amarillo");
             secreta[secreta.indexOf(l)] = null;
         } else {
             fila.children[i].classList.add("gris");
+            colorearTecla(l, "gris");
         }
     });
 }
 
+/* COLOREAR TECLAS */
+function colorearTecla(letra, color) {
+    const tecla = teclas[letra];
+    if (!tecla) return;
+
+    if (color === "verde") {
+        tecla.className = "Key verde"
+        tecla.disabled = false;
+
+    } else if (color === "amarillo" && !tecla.classList.contains("verde")) {
+        tecla.className = "key amarillo";
+        tecla.disabled = false;
+    } else if (
+        color === "gris" &&
+        !tecla.classList.contains("verde") &&
+        !tecla.classList.contains("amarillo")
+    ) {
+        tecla.className = "key gris";
+        tecla.disabled = true;
+    }
+}
