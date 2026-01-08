@@ -75,14 +75,14 @@ async function comprobarIntento() {
     }
 
     if (!(await validarPalabraRAE(palabraActual))) {
-        mensaje.textContent = "❌ No existe en la RAE";
+        mensaje.textContent = "No existe en la RAE";
         return;
     }
 
     comprobarColores();
 
     if (palabraActual === palabraSecreta) {
-        mensaje.textContent = "🎉 ¡Has ganado!";
+        mensaje.textContent = "¡Has ganado!";
         return;
     }
 
@@ -91,7 +91,7 @@ async function comprobarIntento() {
     palabraActual = "";
 
     if (intentoActual === maxIntentos) {
-        mensaje.textContent = `❌ La palabra era ${palabraSecreta}`;
+        mensaje.textContent = `La palabra era ${palabraSecreta}`;
     }
 }
 
