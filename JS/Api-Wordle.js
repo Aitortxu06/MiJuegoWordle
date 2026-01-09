@@ -12,15 +12,22 @@ export async function obtenerPalabraDelDia() {
     let palabraValida = false;
     let palabra = "";
 
-    // Repetimos hasta conseguir una palabra válida en la RAE
     while (!palabraValida) {
-        const response = await fetch(
-            "https://random-word-api.herokuapp.com/word?number=1&length=5&lang=es"
-        );
-        const data = await response.json();
-        palabra = data[0].toUpperCase();
+        try {
+            // Usamos proxy para saltarnos CORS
+            const response = await fetch(
+                "https://cors-anywhere.herokuapp.com/https://random-word-api.herokuapp.com/word?number=1&length=5&lang=es"
+            );
+            const data = await response.json();
 
-        palabraValida = await validarPalabraRAE(palabra);
+            palabra = data[0].toUpperCase();
+
+            // Validamos que tenga 5 letras y solo mayúsculas
+            palabraValida = /^[A-ZÑ]{5}$/.test(palabra);
+        } catch (error) {
+            console.error("Error al obtener palabra:", error);
+            // En caso de fallo del fetch, seguimos intentando
+        }
     }
 
     localStorage.setItem("palabraWordle", palabra);
@@ -29,11 +36,12 @@ export async function obtenerPalabraDelDia() {
     return palabra;
 }
 
-/* VALIDAR PALABRA EN LA RAE */
+/* VALIDAR PALABRA EN LA RAE (simulación) */
 export async function validarPalabraRAE(palabra) {
-     // Simulación de validación
-        return /^[A-ZÑ]{5}$/.test(palabra);
+    return /^[A-ZÑ]{5}$/.test(palabra);
 }
+
+
 // esto lo he quitado porque si no me tengo que tirar mucho tiempo poniendo una palabra valida
 /*try {
         const res = await fetch(

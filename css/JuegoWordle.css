@@ -51,11 +51,13 @@ body {
 /* TECLADO */
 .keyboard {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .keyboard-row {
     display: flex;
-    justify-content: center;
     gap: 5px;
     margin-bottom: 5px;
 }
@@ -64,23 +66,19 @@ body {
     padding: 10px;
     min-width: 35px;
     height: 45px;
-    background-color: #818384;
     border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
+    background-color: #818384;
     color: black;
-    transition: background-color 0.3s, transform 0.1s;
-}
-
-.key:active {
-    transform: scale(0.95);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 /* ENTER y Backspace */
 .key-wide {
     min-width: 60px;
-    font-size: 14px;
 }
 
 /* Colores teclado */
