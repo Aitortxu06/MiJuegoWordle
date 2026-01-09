@@ -23,15 +23,18 @@ async function iniciarJuego() {
 }
 iniciarJuego();
 
-/* CREAR TECLADO */
-const filasTeclado = [
-    "QWERTYUIOP", 
-    "ASDFGHJKLÑ", 
-    "⌫ZXCVBNM⏎"
-];
 
 function crearTeclado() {
+
+    /* CREAR TECLADO */
+    const filasTeclado = [
+        "QWERTYUIOP", 
+        "ASDFGHJKLÑ", 
+        "⌫ZXCVBNM⏎"
+    ];
+
     filasTeclado.forEach(fila => {
+        console.log(fila);
         const divFila = document.createElement("div");
         divFila.classList.add("keyboard-row");
 
