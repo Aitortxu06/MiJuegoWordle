@@ -29,6 +29,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 /* Colores tiles */
@@ -47,6 +48,7 @@ body {
     border-color: #3a3a3c;
 }
 
+/* TECLADO */
 .keyboard {
     margin-top: 20px;
 }
@@ -68,9 +70,14 @@ body {
     cursor: pointer;
     border: none;
     color: black;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
-/* ENTER y BasckSpace */
+.key:active {
+    transform: scale(0.95);
+}
+
+/* ENTER y Backspace */
 .key-wide {
     min-width: 60px;
     font-size: 14px;
@@ -93,8 +100,12 @@ body {
     cursor: not-allowed;
 }
 
-/* Tecla bloqueada */
-.key:disabled {
-    opacity: 0.6; /*Esto lo que hace es cuando una tecla ya se ha utilizado pues que se quede como bloqueada*/
+.key-temporal {
+    background-color: #d3d6da;
+    color: #000;
 }
 
+/* Tecla bloqueada */
+.key:disabled {
+    opacity: 0.6;
+}
